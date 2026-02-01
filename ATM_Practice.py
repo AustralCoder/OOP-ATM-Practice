@@ -5,7 +5,6 @@ class ATM:
         self.is_active = is_active
         self.admin_key = _admin_key
 
-
     def get_status(self):
         return "ONLINE" if self.is_active else "OFFLINE"
 
@@ -18,7 +17,6 @@ class ATM:
             print('Access Allowed. ATM {}'.format(state_str))
         else:
             print("Not Allowed. Access Denied.")
-
 
     def withdraw(self, user, amount, pin_input):
         if not self.is_active:
@@ -42,12 +40,18 @@ class ATM:
         self.cash_inventory -= amount
         print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
 
+    def reload_inventory(self, key_input, reload_amount):
 
+        if key_input == self.admin_key:
+                self.cash_inventory += reload_amount
+                print(f"Sucessfully reloaded ${reload_amount}")
+                print(f"Current ATM inventory: ${self.cash_inventory}")
+        else:
+                print(f"Not Allowed. Access Denied.")
 class Technician:
     def __init__(self,name, key):
         self.name = name
         self.key = key
-
 
     def turn_off_atm(self,atm_instance): 
         print('{} Turning down ATM... '.format(self.name))
@@ -56,12 +60,10 @@ class Technician:
     def turning_on_atm(self, atm_instance):
         print('{} Turning on ATM...'.format(self.name))
         atm_instance.change_power_status(self.key, new_status = True)
-    def reload_atm(self, reload_amount):
-        pass
 
-
-
-
+    def reload_atm(self, atm_instance, reload_amount):
+        print(f"{self.name} is attempting to reload the ATM.. ")
+        atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
 class Account:
     def __init__(self, pin, name, balance):
         self.pin = pin
@@ -89,9 +91,17 @@ if __name__ == '__main__':
 
     print(f'Nico balance: {nico.balance}')
 
-    cajero.withdraw(nico, 22000, 2323)
+    cajero.withdraw(nico, 1, 2323)
 
     print(f'Nico balance: {nico.balance}')
+
+    print(cajero.cash_inventory)
+
+# atm reload test
+
+jorge = Technician("Jorge", 1234)
+
+jorge.reload_atm(cajero, 1) #should be 500000 again
 
 
 
