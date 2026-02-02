@@ -21,12 +21,29 @@ class ATM:
         else:
             print("Not Allowed. Access Denied.")
 
+
+    
+    def closed_on_sundays(self):
+        date_today = datetime.datetime.now().weekday()
+
+        if date_today == 6:
+            print(f"Sorry ATM closed")
+            self.is_active = False
+
+            
     def withdraw(self, user, amount, pin_input):
 
         if not self.is_active:
             print("Out of service")
             return
         
+        if user.active == True:
+            user.deduct(amount)
+            self.cash_inventory -= amount
+            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
+        else:
+            print('Blocked Account')
+            
         if amount > self.cash_inventory:
             print("ATM Machine has not enough exchange")
             return
@@ -40,12 +57,7 @@ class ATM:
             print("Error: Insufficient funds")
             return
         
-        if user.active == True:
-            user.deduct(amount)
-            self.cash_inventory -= amount
-            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
-        else:
-            print('Blocked Account')
+        
 
     def reload_inventory(self, key_input, reload_amount):
 
@@ -57,8 +69,7 @@ class ATM:
                 print(f"Not Allowed. Access Denied.")
     
 
-    def close_on_sundays():
-        pass
+
 
 
     def __repr__(self):
