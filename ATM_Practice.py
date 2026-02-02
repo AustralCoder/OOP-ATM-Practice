@@ -1,12 +1,14 @@
 import datetime
-
-
 class ATM:
     def __init__(self,location, cash_inventory = 500000, is_active = True, _admin_key = None):
         self.location = location
         self.cash_inventory = cash_inventory
         self.is_active = is_active
         self.admin_key = _admin_key
+
+
+    def __repr__(self):
+        return f"ATM Located in {self.location}"
 
     def get_status(self):
         return "ONLINE" if self.is_active else "OFFLINE"
@@ -20,8 +22,6 @@ class ATM:
             print('Access Allowed. ATM {}'.format(state_str))
         else:
             print("Not Allowed. Access Denied.")
-
-
     
     def closed_on_sundays(self):
         date_today = datetime.datetime.now().weekday()
@@ -30,7 +30,6 @@ class ATM:
             print(f"Sorry ATM closed")
             self.is_active = False
 
-            
     def withdraw(self, user, amount, pin_input):
 
         if not self.is_active:
@@ -67,13 +66,6 @@ class ATM:
                 print(f"Current ATM inventory: ${self.cash_inventory}")
         else:
                 print(f"Not Allowed. Access Denied.")
-    
-
-
-
-
-    def __repr__(self):
-        return f"ATM Located in {self.location}"
 
 class Technician:
     def __init__(self,name, key):
@@ -91,10 +83,6 @@ class Technician:
     def reload_atm(self, atm_instance, reload_amount):
         print(f"{self.name} is attempting to reload the ATM.. ")
         atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
-
-
-
-
 class Administration:
 
     def __init__(self, name, key):
