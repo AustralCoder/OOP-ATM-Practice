@@ -22,6 +22,7 @@ class ATM:
             print("Not Allowed. Access Denied.")
 
     def withdraw(self, user, amount, pin_input):
+
         if not self.is_active:
             print("Out of service")
             return
@@ -39,9 +40,12 @@ class ATM:
             print("Error: Insufficient funds")
             return
         
-        user.deduct(amount)
-        self.cash_inventory -= amount
-        print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
+        if user.active == True:
+            user.deduct(amount)
+            self.cash_inventory -= amount
+            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
+        else:
+            print('Blocked Account')
 
     def reload_inventory(self, key_input, reload_amount):
 
@@ -55,6 +59,10 @@ class ATM:
 
     def close_on_sundays():
         pass
+
+
+    def __repr__(self):
+        return f"ATM Located in {self.location}"
 
 class Technician:
     def __init__(self,name, key):
@@ -83,13 +91,14 @@ class Administration:
         self.key = key
 
     def block_user(self, atm_instance, account_to_block):
-        print(f"Suspicious activity alert. {account_to_block} is blocked from this ATM: {atm_instance}, for more info contact with the bank")
+        print(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
         account_to_block.active = False
 class Account:
     def __init__(self, pin, name, balance, active=True):
         self.pin = pin
         self.name = name
         self.balance = balance
+        self.active = active
     
     def check_funds(self, amount):
         return self.balance >= amount
@@ -97,9 +106,8 @@ class Account:
     def deduct(self, amount):
         self.balance -= amount
 
-"""  def block_account():
-        if 
-"""
+    def __repr__(self):
+        return f"{self.name}"
 
 if __name__ == '__main__':
 
