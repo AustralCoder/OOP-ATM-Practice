@@ -72,8 +72,21 @@ class Technician:
     def reload_atm(self, atm_instance, reload_amount):
         print(f"{self.name} is attempting to reload the ATM.. ")
         atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
+
+
+
+
+class Administration:
+
+    def __init__(self, name, key):
+        self.name = name
+        self.key = key
+
+    def block_user(self, atm_instance, account_to_block):
+        print(f"Suspicious activity alert. {account_to_block} is blocked from this ATM: {atm_instance}, for more info contact with the bank")
+        account_to_block.active = False
 class Account:
-    def __init__(self, pin, name, balance):
+    def __init__(self, pin, name, balance, active=True):
         self.pin = pin
         self.name = name
         self.balance = balance
@@ -84,9 +97,9 @@ class Account:
     def deduct(self, amount):
         self.balance -= amount
 
-    def block_account():
-        pass
-
+"""  def block_account():
+        if 
+"""
 
 if __name__ == '__main__':
 
@@ -112,5 +125,9 @@ jorge = Technician("Jorge", 1234)
 
 jorge.reload_atm(cajero, 1) #should be 500000 again
 
+# block account test
 
+Merli = Administration("Merlina", 1234)
+
+Merli.block_user(cajero, nico)
 
