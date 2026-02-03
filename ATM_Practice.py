@@ -35,19 +35,11 @@ class ATM:
         if not self.is_active:
             print("Out of service")
             return
-        
-        if user.active == True:
-            user.deduct(amount)
-            self.cash_inventory -= amount
-            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
-        else:
-            print('Blocked Account')
             
         if amount > self.cash_inventory:
             print("ATM Machine has not enough exchange")
             return
         
-
         if pin_input != user.pin:
             print("Error, wrong PIN")
             return
@@ -56,7 +48,12 @@ class ATM:
             print("Error: Insufficient funds")
             return
         
-        
+        if user.active == True:
+            user.deduct(amount)
+            self.cash_inventory -= amount
+            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
+        else:
+            print('Blocked Account')
 
     def reload_inventory(self, key_input, reload_amount):
 
