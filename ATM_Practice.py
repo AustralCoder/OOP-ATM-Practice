@@ -10,6 +10,12 @@ class ATM:
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
+    
+    def __str__(self):
+        if self.is_active == True:
+            return f"This is {self.location} ATM, currently active"
+        else:
+            return f"This is {self.location} ATM, currently out of service"
 
     def get_status(self):
         return "ONLINE" if self.is_active else "OFFLINE"
@@ -70,6 +76,14 @@ class Technician:
         self.name = name
         self.key = key
 
+    def __repr__(self):
+        return f"Technician: {self.name} \n Key: {self.key}"
+    
+    def __str__(self):
+        return f"{self.name} is an autorized ATM Technician"
+    
+
+
     def turn_off_atm(self,atm_instance): 
         print('{} Turning down ATM... '.format(self.name))
         atm_instance.change_power_status(self.key, new_status = False)
@@ -104,7 +118,10 @@ class Account:
         self.balance -= amount
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"Account name: {self.name} \n pin: {self.pin},\n balance: {self.balance},\n active: {self.active}"
+    
+    def __str__(self):
+        return f"You are {self.name}, your account is currently {self.active}"
 
 if __name__ == '__main__':
 
