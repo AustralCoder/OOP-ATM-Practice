@@ -121,7 +121,11 @@ class Account:
         return f"Account name: {self.name} \n pin: {self.pin},\n balance: {self.balance},\n active: {self.active}"
     
     def __str__(self):
-        return f"You are {self.name}, your account is currently {self.active}"
+
+        if self.active == True:
+            return f"You are {self.name}, your account is currently online"
+        else:
+            return f"You are {self.name}, your account is currently disabled, please contact with the bank for further information"
 
 if __name__ == '__main__':
 
