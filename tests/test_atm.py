@@ -43,5 +43,9 @@ def test_block_user_from_atm():
     Johnny = Administration("Johnny Guitar", 1234)
     nico = Account(1453, "Nico", 10)
     
-    assert Johnny.block_user(cajero, nico) == (f"Suspicious activity alert. {nico} is blocked from this {cajero.location} ATM, for more info contact with the bank")
+    Johnny.block_user(cajero, nico)
+    assert nico.active is False
+
+
+    
 

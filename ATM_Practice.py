@@ -120,38 +120,8 @@ class Account:
         return f"Account name: {self.name} \n pin: {self.pin},\n balance: {self.balance},\n active: {self.active}"
     
     def __str__(self):
-
+        
         if self.active == True:
             return f"You are {self.name}, your account is currently online"
         else:
             return f"You are {self.name}, your account is currently disabled, please contact with the bank for further information"
-
-"""if __name__ == '__main__':
-
-    cajero = ATM("New York", is_active= True, _admin_key = 1234)
-
-    nico = Account(2323, "Nico", 40000)
-
-    #tests
-
-    cajero.withdraw(nico, 1040, 5034)
-
-    print(f'Nico balance: {nico.balance}')
-
-    cajero.withdraw(nico, 1, 2323)
-
-    print(f'Nico balance: {nico.balance}')
-    print(cajero.cash_inventory)
-
-# atm reload test
-
-jorge = Technician("Jorge", 1234)
-jorge.reload_atm(cajero, 1) #should be 500000 again
-
-# block account test
-Merli = Administration("Merlina", 1234)
-Merli.block_user(cajero, nico)
-
-#Trying to withdraw from a blocked account 
-cajero.withdraw(nico,100,2323) #passed
-"""
