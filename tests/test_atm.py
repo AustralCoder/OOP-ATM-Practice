@@ -15,3 +15,16 @@ def test_initial_balance():
 
     pepe = Account(1234, "Pepe", 500, active=True)
     assert pepe.balance == 500
+
+
+def test_withdraw_balance():
+
+    cajero = ATM("New York", is_active= True, _admin_key = 1234)
+
+    nico = Account(2323, "Nico", 40000)
+
+    cajero.withdraw(nico, 1, 2323)
+
+    assert nico.balance == 39999
+
+
