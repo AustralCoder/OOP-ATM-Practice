@@ -1,11 +1,17 @@
 import datetime
 class ATM:
+
+    number_of_atms = 0
+
     def __init__(self,location, cash_inventory = 500000, is_active = True, _admin_key = None):
         self.location = location
         self.cash_inventory = cash_inventory
         self.is_active = is_active
         self.admin_key = _admin_key
         self.closed_on_sundays()
+
+        ATM.number_of_atms += 1
+    
 
 
     def __repr__(self):
@@ -71,6 +77,11 @@ class ATM:
         else:
                 print(f"Not Allowed. Access Denied.")
 
+    @classmethod
+    def how_many_atm(cls):
+        how_m = ATM.number_of_atms
+        return f'{how_m} registered' 
+
 class Technician:
     def __init__(self,name, key):
         self.name = name
@@ -93,6 +104,7 @@ class Technician:
     def reload_atm(self, atm_instance, reload_amount):
         atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
         return (f"{self.name} is attempting to reload the ATM.. ")
+    
 class Administration:
 
     def __init__(self, name, key):
@@ -120,8 +132,9 @@ class Account:
         return f"Account name: {self.name} \n pin: {self.pin},\n balance: {self.balance},\n active: {self.active}"
     
     def __str__(self):
-        
+
         if self.active == True:
             return f"You are {self.name}, your account is currently online"
         else:
             return f"You are {self.name}, your account is currently disabled, please contact with the bank for further information"
+
