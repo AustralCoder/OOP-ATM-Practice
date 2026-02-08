@@ -4,13 +4,8 @@ from ATM_Practice import ATM, Account, Technician, Administration
 
 
 
-def test_how_many_atm():
-    cajero = ATM("New York", is_active= True, _admin_key = 1234)
-    nico = Account(2323, "Nico", 40000)
-    assert ATM.how_many_atm() == '1 registered'
-    
 
-def test__account_string_representation():
+def test_account_string_representation():
 
     nico = Account(1234, "Nico", 100, active=True)
     blocked_user = Account(1234, "banned", 0, active=False)
@@ -54,5 +49,11 @@ def test_block_user_from_atm():
     Johnny.block_user(cajero, nico)
     assert nico.active is False
 
-    
+def test_how_many_atm():
+    ATM.number_of_atms = 0 #manual reset
 
+    cajero = ATM("New York", is_active= True, _admin_key = 1234)
+    dublin_ATM = ATM("Dublin", is_active=False, _admin_key= 3950)
+    
+    assert ATM.how_many_atm() == '2 registered'
+    
