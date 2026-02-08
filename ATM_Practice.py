@@ -79,8 +79,8 @@ class ATM:
 
     @classmethod
     def how_many_atm(cls):
-        how_m = ATM.number_of_atms
-        return f'{how_m} registered' 
+        how_m = cls.number_of_atms
+        return how_m
 
 class Technician:
     def __init__(self,name, key):
@@ -91,7 +91,7 @@ class Technician:
         return f"Technician: {self.name} \n Key: {self.key}"
     
     def __str__(self):
-        return f"{self.name} is an autorized ATM Technician"
+        return f"{self.name} is an authorized ATM Technician"
 
     def turn_off_atm(self,atm_instance): 
         atm_instance.change_power_status(self.key, new_status = False)
@@ -116,11 +116,15 @@ class Administration:
         return(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
         
 class Account:
+
+    number_of_accounts = 0
     def __init__(self, pin, name, balance, active=True):
         self.pin = pin
         self.name = name
         self.balance = balance
         self.active = active
+
+        Account.number_of_accounts += 1
     
     def check_funds(self, amount):
         return self.balance >= amount
@@ -137,4 +141,9 @@ class Account:
             return f"You are {self.name}, your account is currently online"
         else:
             return f"You are {self.name}, your account is currently disabled, please contact with the bank for further information"
+
+    @classmethod
+    def how_many_accounts(cls):
+        how_m = cls.number_of_accounts
+        return how_m
 

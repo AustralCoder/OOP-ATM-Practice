@@ -1,10 +1,5 @@
 from ATM_Practice import ATM, Account, Technician, Administration
 
-
-
-
-
-
 def test_account_string_representation():
 
     nico = Account(1234, "Nico", 100, active=True)
@@ -55,5 +50,14 @@ def test_how_many_atm():
     cajero = ATM("New York", is_active= True, _admin_key = 1234)
     dublin_ATM = ATM("Dublin", is_active=False, _admin_key= 3950)
     
-    assert ATM.how_many_atm() == '2 registered'
+    assert ATM.how_many_atm() == 2
     
+
+def test_how_many_users():
+
+    Account.number_of_accounts = 0
+
+    nico = Account(2026, "Nick", 0, active=True)
+
+    assert Account.how_many_accounts() == 1
+
