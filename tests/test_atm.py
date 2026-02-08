@@ -1,5 +1,15 @@
 from ATM_Practice import ATM, Account, Technician, Administration
 
+
+
+
+
+def test_how_many_atm():
+    cajero = ATM("New York", is_active= True, _admin_key = 1234)
+    nico = Account(2323, "Nico", 40000)
+    assert ATM.how_many_atm() == '1 registered'
+    
+
 def test__account_string_representation():
 
     nico = Account(1234, "Nico", 100, active=True)
@@ -9,13 +19,10 @@ def test__account_string_representation():
     assert str(nico) == "You are Nico, your account is currently online"
     assert "currently disabled" in str(blocked_user)
 
-
-
 def test_initial_balance():
 
     pepe = Account(1234, "Pepe", 500, active=True)
     assert pepe.balance == 500
-
 
 def test_withdraw_balance():
 
@@ -26,6 +33,7 @@ def test_withdraw_balance():
     cajero.withdraw(nico, 1, 2323)
 
     assert nico.balance == 39999
+
 
 
 def test_atm_reload():
@@ -45,7 +53,6 @@ def test_block_user_from_atm():
     
     Johnny.block_user(cajero, nico)
     assert nico.active is False
-
 
     
 
