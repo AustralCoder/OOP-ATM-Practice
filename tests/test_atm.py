@@ -64,7 +64,7 @@ def test_how_many_atm():
 
 #  Technician Class tests
 
-def test_turn_off_atm():
+def test_turn_off_and_on_atm():
     
     box = ATM("Colorado", 1000, is_active=True, _admin_key = 130)
     george = Technician("George", 130)
@@ -73,7 +73,11 @@ def test_turn_off_atm():
 
     assert box.is_active == False
 
+    george.turning_on_atm(box)
     
+    assert box.is_active == True
+
+
 # Account class tests
 def test_how_many_users():
 
