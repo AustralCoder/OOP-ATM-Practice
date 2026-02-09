@@ -30,9 +30,9 @@ class ATM:
             self.is_active = new_status
 
             state_str = "ON" if new_status else "OFF"
-            print('Access Allowed. ATM {}'.format(state_str))
+            return('Access Allowed. ATM {}'.format(state_str))
         else:
-            print("Not Allowed. Access Denied.")
+            return("Not Allowed. Access Denied.")
     
     def closed_on_sundays(self):
         date_today = datetime.datetime.now().weekday()
