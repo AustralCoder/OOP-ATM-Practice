@@ -11,8 +11,6 @@ class ATM:
         self.closed_on_sundays()
 
         ATM.number_of_atms += 1
-    
-
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
@@ -110,11 +108,16 @@ class Administration:
     def __init__(self, name, key):
         self.name = name
         self.key = key
+    
+    def __repr__(self):
+        return f"Administrator: {self.name} \n Key: {self.key}"
+    
+    def __str__(self):
+        return f"{self.name} is an authorized ATM Administrator"
 
     def block_user(self, atm_instance, account_to_block):
         account_to_block.active = False
         return(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
-        
 class Account:
 
     number_of_accounts = 0
@@ -146,4 +149,3 @@ class Account:
     def how_many_accounts(cls):
         how_m = cls.number_of_accounts
         return how_m
-
