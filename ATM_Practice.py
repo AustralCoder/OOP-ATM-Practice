@@ -30,42 +30,39 @@ class ATM:
             self.is_active = new_status
 
             state_str = "ON" if new_status else "OFF"
-            return('Access Allowed. ATM {}'.format(state_str))
+            return f'Access Allowed. ATM {state_str}'
         else:
-            return("Not Allowed. Access Denied.")
+            return "Not Allowed. Access Denied."
     
     def closed_on_sundays(self):
         date_today = datetime.datetime.now().weekday()
         #date_today = 6
         if date_today == 5:
-            print(f"Sorry ATM closed")
             self.is_active = False
+            return "Sorry ATM closed"
+            
     def withdraw(self, user, amount, pin_input):
 
         if not self.is_active:
-            print("Out of service")
-            return
+            return "Out of service"
+            
         
         if not user.active:
-            print("Blocked Account")
-            return
+            return "Blocked Account"
             
         if amount > self.cash_inventory:
-            print("ATM Machine has not enough exchange")
-            return
-        
+            return "ATM Machine has not enough exchange"
+            
         if pin_input != user.pin:
-            print("Error, wrong PIN")
-            return
+            return "Error, wrong PIN"
 
         if not user.check_funds(amount):
-            print("Error: Insufficient funds")
-            return      
+            return "Error: Insufficient funds"
+
         
         user.deduct(amount)
         self.cash_inventory -= amount
-        print('Successful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
-
+        return f'Successful transaction. ${amount} have been withdrawn. Your new balance: ${user.balance}'
     def reload_inventory(self, key_input, reload_amount):
 
         if key_input == self.admin_key:
