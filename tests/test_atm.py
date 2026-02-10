@@ -87,3 +87,20 @@ def test_how_many_users():
 
     assert Account.how_many_accounts() == 1
 
+
+def test_checkfund():
+
+    nico = Account(2020,"Nico", 10, active = True)
+
+    assert nico.check_funds(10) == True
+    assert nico.check_funds(11) == False
+def test_deduct():
+
+    nico = Account(2020,"Nico", 10, active= True)
+    
+    nico.deduct(10)
+
+    assert nico.balance == 0
+
+
+
