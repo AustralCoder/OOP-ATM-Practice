@@ -3,14 +3,18 @@ class ATM:
 
     number_of_atms = 0
 
-    def __init__(self,location, cash_inventory = 500000, is_active = True, _admin_key = None):
+    def __init__(self,location, _cash_inventory = 500000, is_active = True, _admin_key = None):
         self.location = location
-        self.cash_inventory = cash_inventory
+        self._cash_inventory = _cash_inventory
         self.is_active = is_active
         self.admin_key = _admin_key
         self.closed_on_sundays()
 
         ATM.number_of_atms += 1
+
+    @property
+    def cash_inventory(self):
+        return self._cash_inventory
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
@@ -61,14 +65,14 @@ class ATM:
 
         
         user.deduct(amount)
-        self.cash_inventory -= amount
+        self._cash_inventory -= amount
         return f'Successful transaction. ${amount} have been withdrawn. Your new balance: ${user.balance}'
     def reload_inventory(self, key_input, reload_amount):
 
         if key_input == self.admin_key:
-                self.cash_inventory += reload_amount
+                self._cash_inventory += reload_amount
                 print(f"Successfully reloaded ${reload_amount}")
-                print(f"Current ATM inventory: ${self.cash_inventory}")
+                print(f"Current ATM inventory: ${self._cash_inventory}")
         else:
                 print(f"Not Allowed. Access Denied.")
 
