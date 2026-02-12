@@ -3,10 +3,10 @@ class ATM:
 
     number_of_atms = 0
 
-    def __init__(self,location, _cash_inventory = 500000, is_active = True, _admin_key = None):
+    def __init__(self,location, _cash_inventory = 500000, _is_active = True, _admin_key = None):
         self.location = location
         self._cash_inventory = _cash_inventory
-        self.is_active = is_active
+        self._is_active = _is_active
         self.admin_key = _admin_key
         self.closed_on_sundays()
 
@@ -15,6 +15,11 @@ class ATM:
     @property
     def cash_inventory(self):
         return self._cash_inventory
+
+    @property
+    def is_active(self):
+        return self._is_active
+    
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
@@ -31,7 +36,7 @@ class ATM:
     def change_power_status(self, key_input, new_status):
 
         if key_input == self.admin_key:
-            self.is_active = new_status
+            self._is_active = new_status
 
             state_str = "ON" if new_status else "OFF"
             return f'Access Allowed. ATM {state_str}'
