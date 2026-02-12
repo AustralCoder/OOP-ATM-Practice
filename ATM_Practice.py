@@ -56,7 +56,7 @@ class ATM:
             return "Out of service"
             
         
-        if not user.active:
+        if not user._active:
             return "Blocked Account"
             
         if amount > self.cash_inventory:
@@ -87,9 +87,9 @@ class ATM:
         return how_m
 
 class Technician:
-    def __init__(self,name, key):
+    def __init__(self,name, _key):
         self.name = name
-        self.key = key
+        self._key = _key
 
     def __repr__(self):
         return f"Technician: {self.name} \n Key: {self.key}"
@@ -97,29 +97,37 @@ class Technician:
     def __str__(self):
         return f"{self.name} is an authorized ATM Technician"
 
+    @property
+    def key(self):
+        self._key
+
     def turn_off_atm(self,atm_instance): 
-        atm_instance.change_power_status(self.key, new_status = False)
+        atm_instance.change_power_status(self._key, new_status = False)
         return('{} Turning down ATM... '.format(self.name))
     
     def turning_on_atm(self, atm_instance):
-        atm_instance.change_power_status(self.key, new_status = True)
+        atm_instance.change_power_status(self._key, new_status = True)
         return('{} Turning on ATM...'.format(self.name))
 
     def reload_atm(self, atm_instance, reload_amount):
-        atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
+        atm_instance.reload_inventory(key_input=self._key, reload_amount=reload_amount)
         return (f"{self.name} is attempting to reload the ATM.. ")
     
 class Administration:
 
     def __init__(self, name, key):
         self.name = name
-        self.key = key
+        self._key = key
     
     def __repr__(self):
-        return f"Administrator: {self.name} \n Key: {self.key}"
+        return f"Administrator: {self.name} \n Key: {self._key}"
     
     def __str__(self):
         return f"{self.name} is an authorized ATM Administrator"
+    
+    @property
+    def key(self):
+        self._key
 
     def block_user(self, atm_instance, account_to_block):
         account_to_block.active = False
@@ -127,26 +135,39 @@ class Administration:
 class Account:
 
     number_of_accounts = 0
-    def __init__(self, pin, name, balance, active=True):
-        self.pin = pin
+    def __init__(self, _pin, name, _balance, _active=True):
+        self._pin = _pin
         self.name = name
-        self.balance = balance
-        self.active = active
+        self._balance = _balance
+        self._active = _active
 
         Account.number_of_accounts += 1
     
+    @property
+    def pin(self):
+        return self._pin
+    
+    @property
+    def balance(self):
+        return self._balance
+    
+    @property
+    def is_active(self):
+        return self._active
+    
+
     def check_funds(self, amount):
-        return self.balance >= amount
+        return self._balance >= amount
     
     def deduct(self, amount):
-        self.balance -= amount
+        self._balance -= amount
 
     def __repr__(self):
-        return f"Account name: {self.name} \n pin: {self.pin},\n balance: {self.balance},\n active: {self.active}"
+        return f"Account name: {self.name} \n pin: {self._pin},\n balance: {self._balance},\n active: {self._active}"
     
     def __str__(self):
 
-        if self.active == True:
+        if self._active == True:
             return f"You are {self.name}, your account is currently online"
         else:
             return f"You are {self.name}, your account is currently disabled, please contact with the bank for further information"
