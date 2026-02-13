@@ -20,6 +20,18 @@ class ATM:
     def is_active(self):
         return self._is_active
     
+    @classmethod
+    def create_from_string(cls, data_string):
+        # Creates an ATM instance with the format location-cash inventory- is active - admin key
+        location, cash_str, is_active_str, admin_key_str = data_string.split(',')
+
+        cash_inventory = int(cash_str)
+
+        admin_key = int(admin_key_str)
+
+        is_active = is_active_str.strip() == "True"
+        
+        return cls(location, cash_inventory, is_active, admin_key)
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
@@ -56,7 +68,7 @@ class ATM:
             return "Out of service"
             
         
-        if not user._active:
+        if not user.is_active:
             return "Blocked Account"
             
         if amount > self.cash_inventory:
@@ -99,7 +111,7 @@ class Technician:
 
     @property
     def key(self):
-        self._key
+        return self._key
 
     def turn_off_atm(self,atm_instance): 
         atm_instance.change_power_status(self._key, new_status = False)
@@ -127,7 +139,7 @@ class Administration:
     
     @property
     def key(self):
-        self._key
+        return self._key
 
     def block_user(self, atm_instance, account_to_block):
         account_to_block.active = False
@@ -155,7 +167,6 @@ class Account:
     def is_active(self):
         return self._active
     
-
     def check_funds(self, amount):
         return self._balance >= amount
     
